@@ -1,6 +1,6 @@
 	import java.util.*;
-	import java.lang.*;
-	import java.io.*;
+import java.lang.*;
+import java.io.*;
 
 public class MajorityElement 
 {
@@ -12,36 +12,46 @@ public class MajorityElement
 				for(int i=0;i<testcases;i++)
 				{
 				    int size = scan.nextInt();
-				    int [] arr = new int[size];
+				    ArrayList<Integer> arr = new ArrayList(); 
 				    for(int j=0;j<size;j++)
 				    {
-				        arr[i]=scan.nextInt();
+				        arr.add(scan.nextInt());
 				    }
-				    majority(arr,size);
+				    
+				   int res = majority(arr,size);
+				   if(res!=-1)
+				   System.out.println(res);
+				   else
+					   System.out.println("NONE");   
 				}
 			}
 			
-			public static void majority(int []arr , int size)
+			public  static int majority(ArrayList<Integer> arr , int size)
 			{
-			    Arrays.sort(arr);
-			    if(size%2==0)
-			    {
-			        if(arr[0]==arr[size/2] )
-			        System.out.println(arr[0]);
-			        else if (arr[size/2-1]==arr[size-1])
-			        System.out.println(arr[size-1]);
-			        else
-			        System.out.println("NO Majority Element");
-			    }
-			    else
-			    {
-			         if(arr[0]==arr[size/2] )
-			        System.out.println(arr[0]);
-			        else if (arr[size/2-1]==arr[size-1])
-			        System.out.println(arr[size-1]);
-			        else
-			        System.out.println("NO Majority Element");   
-			    }
+				int currMaxCount=0;
+				int maxCount=0;
+				int element = arr.get(0);
+				Collections.sort(arr);
+				for(int i : arr)
+				{
+					if(arr.get(i)==arr.get(i+1))
+					{
+						currMaxCount++;
+					}
+					else
+						currMaxCount=0;
+					
+					if(currMaxCount>maxCount)
+					{
+						maxCount=currMaxCount;
+						element = arr.get(i);
+					}
+				}
+				if( maxCount > size/2)
+				return element;
+				else
+					return -1;
+				
 			}
 		}
 	
